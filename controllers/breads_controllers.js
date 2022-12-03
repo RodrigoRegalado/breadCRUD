@@ -15,17 +15,24 @@ breads.get('/new', (req, res) => {
     res.render('new')
 })
 
-//show
+// SHOW
 breads.get('/:arrayIndex', (req, res) => {
     if (Bread[req.params.arrayIndex]) {
-        res.render('Show', {
-          bread:Bread[req.params.arrayIndex]
-        })
-      } else {
-        res.send('404')
-      }
-})
+      res.render('Show', {
+        bread:Bread[req.params.arrayIndex],
+        index: req.params.arrayIndex,
+      })
+    } else {
+      res.render('404')
+    }
+  })  
 
+// DELETE
+breads.delete('/:indexArray', (req, res) => {
+    Bread.splice(req.params.indexArray, 1)
+    res.status(303).redirect('/breads')
+  })
+  
 // CREATE
 breads.post('/', (req, res) => {
     if (!req.body.image) {
