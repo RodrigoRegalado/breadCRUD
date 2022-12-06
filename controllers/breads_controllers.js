@@ -1,13 +1,10 @@
 const breads = require('express').Router()
-const bread = require('../models/bread.js')
 const Bread = require('../models/bread.js')
 
 breads.get('/', (req, res) => {
-    res.render('index', 
-    {
+    res.render('index', {
         breads: Bread
-    }
-    )
+    })
 })
 
 //new
@@ -17,15 +14,14 @@ breads.get('/new', (req, res) => {
 
 // SHOW
 breads.get('/:arrayIndex', (req, res) => {
-    if (Bread[req.params.arrayIndex]) {
-      res.render('Show', {
-        bread:Bread[req.params.arrayIndex],
-        index: req.params.arrayIndex,
-      })
-    } else {
-      res.render('404')
-    }
-  })  
+  if (Bread[req.params.arrayIndex]) {
+    res.render('Show', {
+      bread:Bread[req.params.arrayIndex]
+    })
+  } else {
+    res.send('404')
+  }
+})
 
 // DELETE
 breads.delete('/:indexArray', (req, res) => {
